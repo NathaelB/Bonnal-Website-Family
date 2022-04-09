@@ -14,7 +14,10 @@ export default class AuthController {
 
   public async registerWeb ({request, response}: HttpContextContract) {
     const data = await request.validate(StoreValidator)
-    await User.create(data)
+    await User.create({
+      ...data,
+      access: false
+    })
 
     return response.redirect().toRoute('home')
   }
