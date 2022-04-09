@@ -9,8 +9,11 @@
   @entryPointStyles('app')
   @entryPointScripts('app')
 </head>
-<body class="bg-white h-full">
-
+<body class="bg-[#0F1017] h-full overflow-x-hidden">
+@!component('components/navbar', {links: [
+{name: "Accueil", path: 'home'},
+{name: "Blog", path: 'blog'}
+]})
 <div class="">
   @!section('content')
 </div>
