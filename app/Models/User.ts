@@ -17,6 +17,9 @@ export default class User extends BaseModel {
   public password: string
 
   @column()
+  public access: boolean
+
+  @column()
   public rememberMeToken?: string
 
   @beforeCreate()
