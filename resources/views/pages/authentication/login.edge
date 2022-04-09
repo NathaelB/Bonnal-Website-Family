@@ -1,0 +1,61 @@
+@layout('layouts/auth')
+@section('login')
+  <div class="min-h-full flex">
+
+    <div class="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+      <a href="{{ route('home') }}" class="text-center">
+        <h2 class="text-lg text-white font-semibold uppercase tracking-wide ">Bonnal</h2>
+        <h2 class="font-light text-gray-300">Poules & Oeufs</h2>
+      </a>
+      <div class="mx-auto w-full max-w-sm lg:w-96">
+
+        <div>
+          <h2 class="mt-6 text-3xl font-extrabold text-gray-300">Se Connecter</h2>
+
+        </div>
+
+        <div class="mt-8">
+
+
+          <div class="mt-6">
+            <form action="" method="POST" class="space-y-6">
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-300">Adresse Email</label>
+                <div class="mt-1">
+                  <input id="email" name="email" type="email" autocomplete="username" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none  sm:text-sm">
+                </div>
+              </div>
+
+
+
+              <div>
+                <label for="password" class="block text-sm font-medium text-gray-300"> Mot de Passe </label>
+                <div class="mt-1">
+                  <input id="password" name="password" type="password" autocomplete="current-password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+              </div>
+
+
+              <div class="border-t pt-4 border-slate-800 space-y-2">
+                <a class="text-gray-300 font-thin" href="{{ route('register') }}">Créer un compte</a>
+                @!component('components/flash')
+                <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 focus:outline-none ">
+                  <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                    <!-- Heroicon name: solid/lock-closed -->
+                    <svg class="h-5 w-5 text-gray-500 group-hover:text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                  Se Connecter
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hidden lg:block relative w-0 flex-1">
+      <img class="absolute inset-0 h-full w-full object-cover" src="{{ asset('assets/images/poussin1.jpg') }}" alt="">
+    </div>
+  </div>
+@endsection
