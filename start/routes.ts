@@ -47,5 +47,10 @@ Route.group(() => {
 
   Route.group(() => {
     Route.get('/', 'UsersController.index').as('manager.users')
+    Route.get('/new', 'UsersController.create').as('manager.users.create')
+    Route.post('/new', 'UsersController.store')
+    
+    Route.get('/:id', 'UsersController.show').as('manager.user')
+    Route.delete('/id', 'UsersController.destroy')
   }).prefix('users')
 }).prefix('manager')
