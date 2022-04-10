@@ -1,11 +1,9 @@
 {
   "assets/app.css": "http://localhost:8080/assets/app.css",
   "assets/app.js": "http://localhost:8080/assets/app.js",
+  "assets/images/pdp.jpg": "http://localhost:8080/assets/images/pdp.297a134b.jpg",
   "assets/images/poussin1.jpg": "http://localhost:8080/assets/images/poussin1.3bb564af.jpg",
   "assets/images/poussin2.jpg": "http://localhost:8080/assets/images/poussin2.7f56f869.jpg",
   "assets/images/poussin3.jpg": "http://localhost:8080/assets/images/poussin3.815a2795.jpg",
-  "assets/images/img.png": "http://localhost:8080/assets/images/img.5afc228f.png",
-  "assets/images/img_1.png": "http://localhost:8080/assets/images/img_1.5afc228f.png",
-  "assets/images/logo_white.png": "http://localhost:8080/assets/images/logo_white.5afc228f.png",
-  "assets/images/pdp.jpg": "http://localhost:8080/assets/images/pdp.297a134b.jpg"
+  "assets/images/logo_white.png": "http://localhost:8080/assets/images/logo_white.5afc228f.png"
 }
