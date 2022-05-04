@@ -9,12 +9,36 @@
   @entryPointStyles('app')
   @entryPointScripts('app')
 </head>
-<body class="bg-white h-full">
+<body class="">
+<div class="bg-white flex flex-col">
 
-<div class="">
-  @!section('content')
+
+  <!--
+    Mobile menu
+
+    Off-canvas menu for mobile, show/hide based on off-canvas menu state.
+  -->
+
+
+  <header class="relative overflow-hidden">
+    <!-- Top navigation -->
+    @!component('components/navbar')
+    @!section('header')
+    <!-- Hero section -->
+
+  </header>
+
+  <main class="min-h-[88vh]">
+    <!-- Category section -->
+
+
+
+    <!-- CTA section -->
+    @!section('content')
+  </main>
+
+  @!component('components/footer')
 </div>
-
 
 </body>
 </html>

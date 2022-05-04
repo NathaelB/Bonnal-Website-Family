@@ -1,4 +1,9 @@
 {
-  "assets/app.css": "http://localhost:8080/assets/app.css",
-  "assets/app.js": "http://localhost:8080/assets/app.js"
+  "assets/app.css": "/assets/app.9e9a9558.css",
+  "assets/app.js": "/assets/app.b2c32a60.js",
+  "assets/images/pdp.jpg": "/assets/images/pdp.297a134b.jpg",
+  "assets/images/poussin1.jpg": "/assets/images/poussin1.3bb564af.jpg",
+  "assets/images/poussin2.jpg": "/assets/images/poussin2.7f56f869.jpg",
+  "assets/images/poussin3.jpg": "/assets/images/poussin3.815a2795.jpg",
+  "assets/images/logo_white.png": "/assets/images/logo_white.5afc228f.png"
 }

@@ -1,0 +1,39 @@
+<div x-data="dropdown" class="relative" xmlns:x-transition="http://www.w3.org/1999/xhtml">
+  <button @click="toggle" class="text-sm font-medium text-gray-700 hover:text-gray-800">
+    S'enregistrer
+  </button>
+  <div
+    x-transition:enter.duration.300ms
+    x-transition:leave.duration.200ms
+    x-show="open"
+    class="origin-top-right absolute right-0 mt-2 w-64 z-50 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+    <div class="px-4 py-3" role="none">
+      <p class="text-sm" role="none">S'enregistrer</p>
+    </div>
+    <div class="py-1" role="none">
+      <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+      <form action="authentication/register" method="POST" class="px-2 my-3">
+        <div>
+          <div class="mt-1">
+            <input type="text" name="username" id="username" class="shadow-sm border focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm p-2 border-gray-300 rounded-md" placeholder="Bonnal">
+          </div>
+          <div class="mt-1">
+            <input type="email" name="email" id="email" class="shadow-sm border focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm p-2 border-gray-300 rounded-md" placeholder="you@example.com">
+          </div>
+          <div class="mt-1">
+            <input type="password" name="password" id="password" class="shadow-sm border focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm p-2 border-gray-300 rounded-md" placeholder="dazdadad">
+          </div>
+        </div>
+        <button type="submit" class="group mt-4 relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-900 border border-gray-200 bg-gray-100 hover:bg-gray-200 focus:outline-none ">
+                      <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                        <!-- Heroicon name: solid/lock-closed -->
+                        <svg class="h-5 w-5 text-gray-800 group-hover:text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                        </svg>
+                      </span>
+          S'enregistrer
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

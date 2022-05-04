@@ -1,0 +1,46 @@
+@layout('layouts/master')
+
+@section('content')
+  <div class="mt-32 max-w-7xl mx-auto">
+    @if(images.length)
+      <section class="gallery">
+        <div class="container">
+          <div class="grid grid-cols-4">
+
+            @each(image in images)
+            <div class="column-xs-12 column-md-4">
+              <figure class="img-container">
+                <img class="rounded-md" src="/uploads/{{image.thumbnail}}" />
+                <figcaption class="img-content">
+                  <h2 class="title">Smart Watch</h2>
+                  <h3 class="category">Showcase</h3>
+                </figcaption>
+                <span class="img-content-hover">
+                  <h2 class="title">{{ image.title}}</h2>
+                </span>
+              </figure>
+            </div>
+            @endeach
+            <script>
+              const imgContent = document.querySelectorAll('.img-content-hover');
+
+              function showImgContent(e) {
+                for(var i = 0; i < imgContent.length; i++) {
+                  x = e.pageX;
+                  y = e.pageY;
+                  imgContent[i].style.transform = `translate3d(${x}px, ${y}px, 0)`;
+                }
+              }
+
+              document.addEventListener('mousemove', showImgContent);
+            </script>
+          </div>
+
+
+        </div>
+      </section>
+    @else
+      <h3>Reviens plus tard pour voir nos photos !</h3>
+    @endif
+  </div>
+@endsection

@@ -1,0 +1,64 @@
+@layout('layouts/manager')
+
+@section('content')
+<form action="{{ route('manager.blog', {id: article.id}) }}?_method=put" method="POST" enctype="multipart/form-data">
+  <div class="flex flex-col px-4 mt-8 space-y-12">
+    <div class=" border-b border-gray-200 pb-8">
+      <input type="text" name="title" id="title" class="block w-full text-2xl font-semibold text-gray-800 border-0 pt-2.5 text-lg  placeholder-gray-500 focus:ring-0" placeholder="{{ article.title}}">
+      <textarea rows="10" name="description" id="description" class=" w-full border-0 py-0  resize-none placeholder-gray-500 focus:ring-0 sm:text-sm">
+      {{ article.description}}
+    </textarea>
+    </div>
+    <div class="space-y-2">
+      <button type="button" class="-ml-2 px-3 inline-flex items-center text-left text-gray-400 group">
+        <!-- Heroicon name: solid/paper-clip -->
+
+        <svg class="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd" />
+        </svg>
+        <div class="flex text-sm text-gray-600 items-center space-x-1">
+          <label for="thumbnail" class="relative cursor-pointer p-1  rounded-md font-medium text-gray-500">
+            <span>Télécharger une image</span>
+            <input
+              onchange="previewPicture(this)"
+              id="thumbnail" name="thumbnail"
+              type="file"
+              class="sr-only"
+              accept="image/png, image/jpeg, image/jpg"
+            >
+          </label>
+        </div>
+      </button>
+      <img id="image" class=" w-full h-auto object-cover rounded-lg shadow-xl" src="/uploads/{{ article.thumbnail }}" alt="">
+
+    </div>
+
+    <div class="py-4 text-sm border-t border-gray-200 flex space-x-4">
+      <button class="bg-gray-200 border border-gray-100 px-4 py-2 rounded-md shadow-sm font-semibold">Modifier</button>
+    </div>
+  </div>
+</form>
+
+<script>
+  const image = document.getElementById('image')
+  const previewPicture = (e) => {
+    const [picture] = e.files
+    if (picture) {
+      image.src = URL.createObjectURL(picture)
+    }
+  }
+</script>
+
+@endsection
+
+@section('right')
+<div class="pt-6 pb-2">
+  <h2 class="text-sm font-semibold border-b border-gray-200 pb-2">Actions</h2>
+  <form class="mt-4" action="{{ route('manager.blog', {id: article.id}) }}?_method=delete" method="POST">
+    <button type="submit" class="bg-red-500 border border-gray-100 px-4 py-2 rounded-md shadow-sm text-white  font-semibold">Supprimer</button>
+  </form>
+</div>
+<div>
+
+</div>
+@endsection
