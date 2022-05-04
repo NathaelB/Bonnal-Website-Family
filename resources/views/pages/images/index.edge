@@ -1,14 +1,14 @@
 @layout('layouts/master')
 
 @section('content')
-  <div class="mt-32 max-w-7xl mx-auto">
+  <div class="mt-32 max-w-7xl mx-auto w-full  px-8">
     @if(images.length)
-      <section class="gallery">
-        <div class="container">
-          <div class="grid grid-cols-4">
+      <section class="gallery ">
+        <div class="container ">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
 
             @each(image in images)
-            <div class="column-xs-12 column-md-4">
+            <div class="column-xs-12 column-md-4  mx-auto">
               <figure class="img-container">
                 <img class="rounded-md" src="/uploads/{{image.thumbnail}}" />
                 <figcaption class="img-content">
