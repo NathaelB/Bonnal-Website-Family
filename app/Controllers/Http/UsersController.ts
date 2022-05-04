@@ -6,7 +6,7 @@ export default class UsersController {
   public async index ({view, bouncer, response, request}: HttpContextContract) {
     if (await bouncer.can('manager')) {
       const page = await request.input('page', 1)
-      const users = User.query().paginate(page, 10)
+      const users = await User.query().paginate(page, 10)
       return view.render('pages/manager/users/index', {
         users
       })

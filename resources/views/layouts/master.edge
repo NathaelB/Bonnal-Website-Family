@@ -9,15 +9,36 @@
   @entryPointStyles('app')
   @entryPointScripts('app')
 </head>
-<body class="bg-[#0F1017] h-full overflow-x-hidden">
-@!component('components/navbar', {links: [
-{name: "Accueil", path: 'home'},
-{name: "Blog", path: 'blog'}
-]})
-<div class="">
-  @!section('content')
-</div>
+<body class="">
+<div class="bg-white flex flex-col">
 
+
+  <!--
+    Mobile menu
+
+    Off-canvas menu for mobile, show/hide based on off-canvas menu state.
+  -->
+
+
+  <header class="relative overflow-hidden">
+    <!-- Top navigation -->
+    @!component('components/navbar')
+    @!section('header')
+    <!-- Hero section -->
+
+  </header>
+
+  <main class="min-h-[88vh]">
+    <!-- Category section -->
+
+
+
+    <!-- CTA section -->
+    @!section('content')
+  </main>
+
+  @!component('components/footer')
+</div>
 
 </body>
 </html>

@@ -1,70 +1,98 @@
-<div x-data="dropdown" class="w-[20%] fixed">
-  <nav class="bg-gray-800 bg-opacity-[0.5] h-screen  border-r border-gray-700 flex flex-col justify-between  flex flex-col min-h-0 ">
-    <div class="flex flex-col  space-y-8 mt-8 pl-8">
-      <a href="/">
-        <img class="w-1/2" src="{{ asset('assets/images/logo_white.png') }}">
-      </a>
-      <div class="space-y-2 translate-x-[1px] text-gray-600 flex flex-col" x-data="{ data: 'bg-slate-800 text-gray-50 border-r border-slate-800 rounded-l-md' }">
-        <div :class="{{request.url() === '/manager'}} ? data : ''">
-          <a href="/manager"  class="group flex items-center px-3 py-2 text-sm font-medium rounded-md" aria-current="page">
-            <svg class=" flex-shrink-0 -ml-1 mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
-            <span class="truncate"> Dashboard </span>
+<nav class="flex-shrink-0 bg-indigo-600" xmlns:x-transition="http://www.w3.org/1999/xhtml" x-data="dropdown">
+  <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+    <div class="relative flex items-center justify-between h-16">
+      <!-- Logo section -->
+      <div class="flex items-center px-2 lg:px-0 xl:w-64">
+        <div class="flex-shrink-0">
+          <a href="{{ route('home')}}">
+            <img class="h-8 w-auto" src="{{ asset('assets/images/logo_white.png')}}" alt="Workflow">
           </a>
+
         </div>
-        <div :class="{{request.url() === '/manager/users'}} ? data : '' ">
-          <a href="{{ route('manager.users') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-            <svg class=" flex-shrink-0 -ml-1 mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-            <span class="truncate"> Utilisateurs </span>
-          </a>
+      </div>
+
+      <!-- Search section -->
+      <div class="flex lg:hidden">
+        <button @click="toggle" type="button" class="bg-indigo-600 inline-flex items-center justify-center p-2 rounded-md text-indigo-400 hover:text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+
+          <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+          </svg>
+
+          <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="hidden lg:block lg:w-80">
+        <div class="flex items-center justify-end">
+          <div class="flex">
+            @each(link in managerMenu)
+              <a href="{{ route(link.path)}}" class="px-3 py-2 rounded-md text-sm font-medium text-indigo-200 hover:text-white">{{ link.name }}</a>
+            @endeach
+          </div>
+          <!-- Profile dropdown -->
+          <div class="hidden ml-4 relative flex-shrink-0" x-data="dropdown">
+            <div>
+              <button @click="toggle" class="rounded-md border border-indigo-500 bg-indigo-400 p-2 py-1 text-white overflow-hidden">
+                {{ auth.user.username}}
+              </button>
+            </div>
+
+            <!--
+              Dropdown menu, show/hide based on menu state.
+
+              Entering: "transition ease-out duration-100"
+                From: "transform opacity-0 scale-95"
+                To: "transform opacity-100 scale-100"
+              Leaving: "transition ease-in duration-75"
+                From: "transform opacity-100 scale-100"
+                To: "transform opacity-0 scale-95"
+            -->
+            <div
+              x-transition:enter.duration.300ms
+              x-transition:leave.duration.200ms
+              x-show="open"
+              class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+              <div class="px-4 py-3" role="none">
+                <p class="text-sm" role="none">Connecté avec</p>
+                <p class="text-sm font-medium text-gray-900 truncate" role="none">{{ auth.user.email }}</p>
+              </div>
+              <div class="py-1" role="none">
+                <form method="POST" action="/authentication/logout" role="none">
+                  <button type="submit" class="text-gray-700 block w-full flex text-left px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">
+                    <svg aria-hidden="true" width="20" height="20" fill="none" class="flex-none mr-3 text-gray-400 group-hover:text-teal-600">
+                      <path d="M10.25 3.75H9A6.25 6.25 0 002.75 10v0A6.25 6.25 0 009 16.25h1.25M10.75 10h6.5M14.75 12.25l2.5-2.25-2.5-2.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                    Se déconnecter
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div :class="{{request.url() === '/manager/blog'}} ? data : ''">
-          <a href="/manager/blog" class="  group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-            <svg class=" flex-shrink-0 -ml-1 mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-            </svg>
-            <span class="truncate"> Blog </span>
-          </a>
-        </div>
-        
-
-
-
-
       </div>
     </div>
-    <div class="flex-shrink-0 flex border-t border-slate-800 p-4 pl-8 mb-4 pt-6">
-      <button @click="toggle" class="flex-shrink-0 w-full group block">
-        <div class="flex items-center">
-          <div>
-            <img class="inline-block h-9 w-9 rounded-full object-cover" src="{{ asset('assets/images/pdp.jpg') }}" alt="">
-          </div>
-          <div class="ml-3">
-            <p class="text-sm font-medium text-white">{{ auth.user.username }}</p>
-            <p class="text-xs font-medium text-gray-300 group-hover:text-gray-200">Voir profil</p>
-          </div>
-        </div>
-      </button>
+  </div>
+
+  <!-- Mobile menu, show/hide based on menu state. -->
+  <div class="lg:hidden" id="mobile-menu" x-show="open"  x-transition:enter.duration.300ms
+       x-transition:leave.duration.200ms>
+    <div class="px-2 pt-2 pb-3 space-y-1">
+      <!-- Current: "text-white bg-indigo-800", Default: "text-indigo-200 hover:text-indigo-100 hover:bg-indigo-600" -->
+      <a href="#" class="text-white bg-indigo-800 block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Dashboard</a>
+
+      <a href="#" class="text-indigo-200 hover:text-indigo-100 hover:bg-indigo-600 block px-3 py-2 rounded-md text-base font-medium">Domains</a>
     </div>
+    <div class="pt-4 pb-3 border-t border-indigo-800">
+      <div class="px-2 space-y-1">
+        <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-indigo-200 hover:text-indigo-100 hover:bg-indigo-600">Your Profile</a>
 
+        <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-indigo-200 hover:text-indigo-100 hover:bg-indigo-600">Settings</a>
 
-  </nav>
-  @!component('components/manager/slide-over')
-</div>
-
-<style>
-  .pdp::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 100px;
-    background: rgba(0,0,0,0.3);
-  }
-</style>
+        <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-indigo-200 hover:text-indigo-100 hover:bg-indigo-600">Sign out</a>
+      </div>
+    </div>
+  </div>
+</nav>

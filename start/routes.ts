@@ -17,20 +17,25 @@
 | import './routes/customer''
 |
 */
-const links = [
-  {name: "Accueil", path: 'home'},
-  {name: "Blog", path: 'blog'}
-]
+import Blog from "App/Models/Blog";
+
+
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', async ({ view }) => {
-  return view.render('pages/index', links)
+  const articles = await Blog.query().orderBy('created_at', 'desc').limit(3)
+  return view.render('pages/index', {
+    articles
+  })
 }).as('home')
 
+Route.group(() => {
+  Route.get('/', 'BlogsController.global').as('blogs')
+  Route.get('/:id', 'BlogsController.visit').as('blog')
+}).prefix('blogs')
 
-Route.get('/blog', async ({view}) => {
-  return view.render('pages/blog/index', links)
-}).as('blog')
+Route.get('/images', 'ImagesController.global').as('image')
+
 
 
 Route.group(() => {
@@ -44,13 +49,33 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('/', 'ManagersController.index').as('manager.home')
+  Route.group(() => {
+    Route.get('/', 'BlogsController.index').as('manager.blogs')
+    Route.get('/new', 'BlogsController.create').as('manager.blogs.create')
+    Route.post('/new', 'BlogsController.store')
+
+    Route.get('/:id', 'BlogsController.show').as('manager.blog')
+    Route.put('/:id', 'BlogsController.update' )
+    Route.delete('/:id', 'BlogsController.destroy')
+  }).prefix('blogs')
+
+  Route.group(() => {
+    Route.get('/', 'ImagesController.index').as('manager.images')
+    Route.get('/new', 'ImagesController.create').as('manager.images.create')
+    Route.post('/new', 'ImagesController.store')
+
+    Route.get('/:id', 'ImagesController.show').as('manager.image')
+    Route.delete('/:id', 'ImagesController.destroy')
+  }).prefix('images')
+
+
 
   Route.group(() => {
     Route.get('/', 'UsersController.index').as('manager.users')
     Route.get('/new', 'UsersController.create').as('manager.users.create')
-    Route.post('/new', 'UsersController.store')
-    
+    Route.delete('/new', 'UsersController.store')
+
     Route.get('/:id', 'UsersController.show').as('manager.user')
-    Route.delete('/id', 'UsersController.destroy')
+    Route.delete('/:id', 'UsersController.destroy')
   }).prefix('users')
-}).prefix('manager')
+}).prefix('manager').middleware(['manager'])

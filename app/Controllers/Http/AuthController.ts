@@ -31,7 +31,7 @@ export default class AuthController {
       await response.redirect().toRoute('home')
     } catch  {
       session.flash({error: "Identifiants Incorrects"})
-      response.redirect().toRoute('login')
+      response.redirect().toRoute('home')
     }
   }
 

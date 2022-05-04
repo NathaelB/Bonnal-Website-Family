@@ -27,7 +27,7 @@ export default class StoreValidator {
     username: schema.string({ trim: true }, [rules.unique({table: 'users', column: 'username'})]),
     email: schema.string({ trim: true }, [rules.email(), rules.unique({ table: 'users', column: 'email' })]),
 
-    password: schema.string({ trim: true }, [rules.confirmed()]),
+    password: schema.string({ trim: true }),
   })
 
   /**
