@@ -23,7 +23,6 @@ export default class BlogsController {
 
   public async visit ({view, params}: HttpContextContract) {
     const article = await Blog.findBy('slug',params.id)
-    console.log('test')
     return view.render('pages/blogs/show', {
       article
     })
